@@ -8,23 +8,19 @@ public class Screenshake : MonoBehaviour
     public float shakeInterval;
     public float shakeMagnitude;
 
-
-    private static Object theLock = new Object();
     private static Coroutine shakeInstance; // ensures only one screenshake routine is wobbling the camera
-    // Start is called before the first frame update
-    
+                                            // Start is called before the first frame update
+
+
     void Update()
     {
         // placeholder code; you can change the cause to be whatever you want!
         // you should respect the shakeInstance; only start the routine if the shakeInstance is null!
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            lock (theLock)
+            if (shakeInstance == null && Input.GetKeyDown(KeyCode.Space))
             {
-                if (shakeInstance == null && Input.GetKeyDown(KeyCode.Space))
-                {
-                    shakeInstance = StartCoroutine("Shake");
-                }
+                shakeInstance = StartCoroutine("Shake");
             }
         }
     }
